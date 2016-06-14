@@ -176,6 +176,7 @@ public class CommodityPanel extends JPanel implements  Serializable, ListSelecti
 		JButton addButton = new JButton("ADD");
 		addButton.setBounds(730, 200, 90, 20);
 		add(addButton);
+		addButton.addActionListener(new AddListener());
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBounds(500, 225, 320, 105);
@@ -238,7 +239,7 @@ public class CommodityPanel extends JPanel implements  Serializable, ListSelecti
 		voucherField.setBounds(712, 340, 50, 20);
 		add(voucherField);
 		voucherField.setColumns(10);
-		addButton.addActionListener(new AddListener());
+		
 		this.setVisible(false);
 		setPromotionTable();
 	}
@@ -386,13 +387,13 @@ public class CommodityPanel extends JPanel implements  Serializable, ListSelecti
 		for(CommodityPO po:commodityList){
 			sum=sum+po.getAmount()*po.getImpPrice();
 		}
+		System.out.println(sum);
 		promotionlist.clear();
 		ArrayList<PromotionVO> templist=sbs.showAvailablePromotion(new SalesVO("","Sales",customer,"",
 				"","",commodityList,sum,0,
 				0,0,"",null,"未审批"));
 		promotionlist.addAll(templist);
 
-		
 		while(gmodel.getRowCount()!=0){
 			gmodel.removeRow(0);
 		}
@@ -409,6 +410,7 @@ public class CommodityPanel extends JPanel implements  Serializable, ListSelecti
 			pmodel.removeRow(0);
 		}
 		packTable.revalidate();
+		
 		for(PromotionVO pvo:promotionlist){
 			if(pvo.getType().equals(types.g)){
 					Vector v=new Vector();
@@ -450,36 +452,39 @@ public class CommodityPanel extends JPanel implements  Serializable, ListSelecti
 			}
 		}
 		double discount=0,voucher=0;
+		
 		for(PromotionVO vo:promotionlist){
 			if(vo.getType().equals(types.v)){
 				voucher=voucher+vo.getVoucher();
+				
 			}else if(vo.getType().equals(types.d)){
-				discount=discount+sum*(1-vo.getDiscount());
+				discount=sum*(1-vo.getDiscount());
 			}else if(vo.getType().equals(types.g)){
 				
 			}else if(vo.getType().equals(types.p)){
-				ArrayList<CommodityPO> packlist=vo.getpackList();
-				ArrayList<CommodityPO> list=new ArrayList<CommodityPO>();
-				String ID=null;
-				int num=0;
-				for(CommodityPO po:packlist){
-					if(!po.getID().equals(ID)){
-						num=1;
-						list.add(po);
-						po.setImpPrice(num);
-						ID=po.getID();
-					}else{
-						num++;
-						list.get(list.size()-1).setImpPrice(num);
-					}
-				}
-				for(CommodityPO po:commodityList){
-					for(CommodityPO pack:list){
-						if(pack.getID().equals(po.getID())){
-							discount=discount+pack.getImpPrice()*po.getImpPrice()*(1-vo.getPackDiscount());
-						}
-					}
-				}
+//				ArrayList<CommodityPO> packlist=vo.getpackList();
+//				ArrayList<CommodityPO> list=new ArrayList<CommodityPO>();
+//				String ID=null;
+//				int num=0;
+//				for(CommodityPO po:packlist){
+//					if(!po.getID().equals(ID)){
+//						num=1;
+//						list.add(po);
+//						po.setImpPrice(num);
+//						ID=po.getID();
+//					}else{
+//						num++;
+//						list.get(list.size()-1).setImpPrice(num);
+//					}
+//				}
+//				for(CommodityPO po:commodityList){
+//					for(CommodityPO pack:list){
+//						if(pack.getID().equals(po.getID())){
+//							discount=discount+pack.getImpPrice()*po.getImpPrice()*(1-vo.getPackDiscount());
+//						}
+//					}
+//				}
+				discount=sum*(1-vo.getPackDiscount());
 			}
 		}
 		DecimalFormat df = new DecimalFormat(".00");

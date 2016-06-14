@@ -129,15 +129,21 @@ public class PromotionFrame extends mainFrame{
 		public void actionPerformed(ActionEvent arg0) {
 			// TODO Auto-generated method stub
 			containPanel.removeAll();
-			discountTablePanel d = new discountTablePanel(user);
-			/*
+			JTabbedPane tabbedPane = new JTabbedPane();
+			tabbedPane.setBounds(10, 10, 840, 550);
+			giftTablePanel panel1 = new giftTablePanel(user);
+			discountTablePanel panel2 = new discountTablePanel(user);
+			voucherTablePanel panel3 = new voucherTablePanel(user);
+			packTablePanel panel4 = new packTablePanel(user);
+			
 			tabbedPane.add("赠送赠品", panel1);
 			tabbedPane.add("价格折让", panel2);
 			tabbedPane.add("代金券", panel3);
 			tabbedPane.add("特价包", panel4);
-			*/
-			containPanel.add(d);
+			
+			containPanel.add(tabbedPane);
 			containPanel.paintComponents(containPanel.getGraphics());
+			tabbedPane.setVisible(true);
 			containPanel.repaint();
 		}
 		

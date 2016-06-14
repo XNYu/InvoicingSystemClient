@@ -79,10 +79,6 @@ public class SalesFrame extends mainFrame{
 		functionPanel.add(salesButton);
 		containPanel.setLayout(null);
 		
-		
-		
-		
-		
 		setVisible(true);
 		repaint();
 	}
@@ -93,7 +89,6 @@ public class SalesFrame extends mainFrame{
 		public void actionPerformed(ActionEvent arg0) {
 			dispose();
 			new LoginFrame("1");
-			
 			
 		}
 		

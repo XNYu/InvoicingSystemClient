@@ -181,6 +181,7 @@ public class Sales {
 				
 			}else if(pvo.getType().equals(types.d)){
 				discount=discount+po.getSum()*(1-pvo.getDiscount());
+				break;
 			}else if(pvo.getType().equals(types.g)){
 				ArrayList<CommodityPO> list=new ArrayList<CommodityPO>();
 				ArrayList<CommodityPO> giftlist=pvo.getGiftList();
@@ -222,6 +223,7 @@ public class Sales {
 						}
 					}
 				}
+				break;
 			}
 		}
 		DecimalFormat df = new DecimalFormat(".00");

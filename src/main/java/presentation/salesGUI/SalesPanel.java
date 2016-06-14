@@ -206,12 +206,13 @@ public class SalesPanel extends JPanel implements TableModelListener,ListSelecti
 				ID=sbs.makeSales(new SalesVO("","Sales",(String)cComboBox.getSelectedItem(),stockField.getText(),
 				operatorField.getText(),salesmanField.getText(),commoditylist,0,0,
 				0,Double.parseDouble(voucherField.getText()),documentField.getText(),promotionlist,"未审批"));
+				System.out.println("销售商:"+(String)cComboBox.getSelectedItem());
+				System.out.println("仓库:"+stockField.getText());
+			//	System.out.println(
 				commoditylist.clear();
 			}else{
 				text="不合法输入";
 			}
-			
-			
 			
 			if(ID!=null){
 				text="销售成功";
